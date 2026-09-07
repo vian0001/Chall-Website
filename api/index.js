@@ -15,6 +15,15 @@ app.use((req, res, next) => {
   res.setHeader('X-Powered-By', 'VaultOps-Core-Node/1.0.4-beta');
   res.setHeader('X-System-Debug', 'hint: check /api/system/status for diagnostic matrix');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+// Global Anti-AI / Anti-cURL Shield (Blocks any curl, wget, python, or cli bot on all routes)
+app.use((req, res, next) => {
+  const ua = (req.headers['user-agent'] || '').toLowerCase();
+  const blocked = ['curl', 'python-requests', 'wget', 'httpclient', 'aiohttp', 'go-http-client', 'postmanruntime', 'scrapy'];
+  if (blocked.some(b => ua.includes(b))) {
+    res.status(403);
+    res.setHeader('Content-Type', 'text/plain');
+    return res.send('[BLOCKED] 403 Forbidden: Direct cURL and automated AI agents are barred from accessing this portal. Please visit using a real web browser.\n');
+  }
   next();
 });
 
