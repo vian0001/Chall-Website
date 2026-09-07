@@ -62,20 +62,97 @@ async function fetchDocument(docId) {
       }
     });
 
-    const data = await res.json();
+    let data = null;
+    if (res.ok) {
+      data = await res.json();
+    }
 
-    if (res.ok && data.document) {
+    if (data && data.document) {
       renderDocument(data.document, data.tampered_access);
     } else {
-      renderError(data);
+      // Fallback for static Firebase Hosting (Spark plan)
+      const fallbackDocs = {
+        1001: {
+          id: 1001,
+          docNumber: 'DOC-EXEC-1001',
+          title: 'CONFIDENTIAL: Executive Board Minutes & Challenge Flag',
+          classification: 'RESTRICTED // BOARD DIRECTORS ONLY',
+          author: 'Chief Executive Officer (Root)',
+          date: '2026-09-01T10:00:00Z',
+          department: 'Executive Leadership',
+          content: "Pursuant to Corporate Audit Directive 109, the master production flag for the 2026 security assessment has been deposited inside this executive object.\n\nFLAG: FLAG{1d0r_byp4ss_&_4nt1_cur1_d3f34t3d_2026}\n\nSecurity Notice: If you are reading this as an unprivileged auditor, this system suffers from Broken Access Control (Insecure Direct Object Reference).",
+          flag: "FLAG{1d0r_byp4ss_&_4nt1_cur1_d3f34t3d_2026}"
+        },
+        1002: {
+          id: 1002,
+          docNumber: 'DOC-FIN-1002',
+          title: 'Q3 Financial Audit & Revenue Allocation',
+          classification: 'CONFIDENTIAL // FINANCE',
+          author: 'Head of Treasury',
+          date: '2026-08-25T14:30:00Z',
+          department: 'Finance & Accounts',
+          content: 'All departmental expenditures for cloud infrastructure have been reviewed. Total variance: 3.4% under projection.'
+        },
+        1005: {
+          id: 1005,
+          docNumber: 'DOC-SYS-1005',
+          title: 'Production Infrastructure Migration Telemetry',
+          classification: 'INTERNAL // DEVOPS',
+          author: 'Lead Site Reliability Engineer',
+          date: '2026-08-20T09:15:00Z',
+          department: 'Infrastructure',
+          content: 'Kubernetes nodes cluster transition completed. Backup verification passed.'
+        },
+        1042: {
+          id: 1042,
+          docNumber: 'DOC-AUD-1042',
+          title: 'Guest Auditor Induction & Scope of Work',
+          classification: 'UNCLASSIFIED // AUDITOR DESK',
+          author: 'Compliance Officer',
+          date: '2026-09-05T11:00:00Z',
+          department: 'Internal Audit',
+          content: 'Welcome, Auditor Guest (EMP-1042). Your testing scope is strictly limited to your designated document portal.\n\nNote: You are officially authorized only to access document ID 1042. Attempting to view lower indexed documents (such as 1001) is strictly logged.'
+        }
+      };
+
+      const docNum = parseInt(docId, 10);
+      if (fallbackDocs[docNum]) {
+        renderDocument(fallbackDocs[docNum], docNum !== 1042);
+      } else {
+        renderError(data || { error: 'Document Not Found', message: 'No record exists for the specified index.' });
+      }
     }
   } catch (err) {
-    viewer.innerHTML = `
-      <div class="p-8 border border-red-500/30 bg-red-950/20 rounded-xl text-center">
-        <h4 class="text-sm font-mono text-red-400 uppercase font-bold mb-2">Perimeter Error</h4>
-        <p class="text-xs text-zinc-400 font-mono">${err.message}</p>
-      </div>
-    `;
+    // Fallback if network fails
+    const docNum = parseInt(docId, 10);
+    const fallback = {
+      1001: {
+        id: 1001,
+        docNumber: 'DOC-EXEC-1001',
+        title: 'CONFIDENTIAL: Executive Board Minutes & Challenge Flag',
+        classification: 'RESTRICTED // BOARD DIRECTORS ONLY',
+        author: 'Chief Executive Officer (Root)',
+        date: '2026-09-01T10:00:00Z',
+        department: 'Executive Leadership',
+        content: "Pursuant to Corporate Audit Directive 109, the master production flag for the 2026 security assessment has been deposited inside this executive object.\n\nFLAG: FLAG{1d0r_byp4ss_&_4nt1_cur1_d3f34t3d_2026}\n\nSecurity Notice: If you are reading this as an unprivileged auditor, this system suffers from Broken Access Control (Insecure Direct Object Reference).",
+        flag: "FLAG{1d0r_byp4ss_&_4nt1_cur1_d3f34t3d_2026}"
+      },
+      1042: {
+        id: 1042,
+        docNumber: 'DOC-AUD-1042',
+        title: 'Guest Auditor Induction & Scope of Work',
+        classification: 'UNCLASSIFIED // AUDITOR DESK',
+        author: 'Compliance Officer',
+        date: '2026-09-05T11:00:00Z',
+        department: 'Internal Audit',
+        content: 'Welcome, Auditor Guest (EMP-1042). Your testing scope is strictly limited to your designated document portal.'
+      }
+    };
+    if (fallback[docNum]) {
+      renderDocument(fallback[docNum], docNum !== 1042);
+    } else {
+      renderError({ error: 'Record Query Failed', message: err.message });
+    }
   }
 }
 
