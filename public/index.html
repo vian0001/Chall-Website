@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VaultOps — Internal Ops Console</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- DEVELOPER NOTE: Diagnostic matrix exposed at /api/system/status. Fix before production deployment! -->
+</head>
+<body>
+  <div class="bg-glow"></div>
+  
+  <header class="top-nav">
+    <div class="logo">
+      <span class="icon">⚡</span>
+      <span class="brand">Vault<span class="accent">Ops</span></span>
+      <span class="badge beta">BETA v1.0.4</span>
+    </div>
+    <div class="server-status">
+      <span class="pulse-dot"></span>
+      <span class="status-text">SYSTEM ONLINE (STAGING)</span>
+    </div>
+    <div class="nav-user" id="navUser">
+      <span id="userStatus">Not Authenticated</span>
+      <button id="logoutBtn" class="btn-sm btn-outline hidden">Logout</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Intro Alert Banner -->
+    <div class="banner">
+      <div class="banner-icon">🛡️</div>
+      <div class="banner-content">
+        <h3>VaultOps Beta Security Evaluation</h3>
+        <p>This internal deployment is monitored. Public registration is open for operators. Unauthorized attempts to unlock the core Flag Vault will be logged.</p>
+      </div>
+    </div>
+
+    <!-- Auth Section (Shown when logged out) -->
+    <section id="authSection" class="card">
+      <div class="card-header">
+        <h2>🔐 Operator Authentication</h2>
+        <p class="subtitle">Enter your operator credentials or register a new workspace account.</p>
+      </div>
+      <div class="auth-tabs">
+        <button class="tab-btn active" data-tab="loginTab">Login</button>
+        <button class="tab-btn" data-tab="registerTab">Register Operator</button>
+      </div>
+
+      <div id="loginTab" class="tab-content active">
+        <form id="loginForm" class="form-grid">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="loginUsername" placeholder="e.g. operator1" required spellcheck="false">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary">⚡ Login to Console</button>
+        </form>
+      </div>
+
+      <div id="registerTab" class="tab-content">
+        <form id="registerForm" class="form-grid">
+          <div class="form-group">
+            <label>Choose Username</label>
+            <input type="text" id="regUsername" placeholder="e.g. recruit" required spellcheck="false">
+          </div>
+          <div class="form-group">
+            <label>Choose Password</label>
+            <input type="password" id="regPassword" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-accent">Create Operator Account</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Dashboard Section (Shown when logged in) -->
+    <section id="dashboardSection" class="hidden">
+      <!-- User Profile Card -->
+      <div class="card profile-card">
+        <div class="profile-meta">
+          <div>
+            <span class="label">CURRENT IDENTITY</span>
+            <h2 id="dispUsername">Anonymous</h2>
+          </div>
+          <div class="badges">
+            <span id="roleBadge" class="badge role-badge">operator</span>
+            <span id="accessBadge" class="badge level-badge">Level 1</span>
+          </div>
+        </div>
+
+        <div class="token-box">
+          <div class="token-header">
+            <span class="label">ACTIVE JWT TOKEN (Cookie / Authorization Header)</span>
+            <button id="copyTokenBtn" class="btn-mini">📋 Copy Token</button>
+          </div>
+          <textarea id="tokenDisplay" rows="3" readonly></textarea>
+          <div class="token-hint">
+            💡 <em>Tip: Paste this token into your <strong>WebHunter</strong> JWT Tool to decode claims and forge an admin token!</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid Columns -->
+      <div class="dashboard-grid">
+        <!-- Notes Panel -->
+        <div class="card">
+          <div class="card-header">
+            <h3>📋 Internal System Directives</h3>
+          </div>
+          <div id="notesContainer" class="notes-list">
+            <div class="loading">Loading internal records...</div>
+          </div>
+        </div>
+
+        <!-- Custom Preferences & Sync Panel (Vulnerable to Prototype Pollution) -->
+        <div class="card">
+          <div class="card-header">
+            <h3>⚙️ Preferences & Cloud Sync</h3>
+            <p class="subtitle">Sync your JSON preferences into session memory via recursive merge.</p>
+          </div>
+          <form id="mergeForm">
+            <div class="form-group">
+              <label>Preferences JSON Payload</label>
+              <textarea id="mergePayload" rows="5" spellcheck="false">{
+  "theme": "dark-neon",
+  "notifications": true
+}</textarea>
+            </div>
+            <button type="submit" class="btn btn-secondary">Sync Settings (Recursive Merge)</button>
+          </form>
+          <div id="mergeOutput" class="console-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- Flag Vault Card -->
+      <div class="card vault-card">
+        <div class="vault-info">
+          <div class="vault-icon">🏆</div>
+          <div>
+            <h2>High-Security Flag Vault</h2>
+            <p>Access requires verified <code>admin</code> permissions and an unlocked master runtime state.</p>
+          </div>
+        </div>
+        <button id="accessVaultBtn" class="btn btn-gold">🔓 Request Flag Access</button>
+        <div id="vaultResult" class="vault-result hidden"></div>
+      </div>
+    </section>
+
+    <!-- Manual Token Override (Helpful for testing forged tokens) -->
+    <div class="card manual-token-card">
+      <div class="card-header">
+        <h4>🧪 Manual Session Token Override</h4>
+        <p class="subtitle">Replace active session token with a forged JWT without clearing browser storage.</p>
+      </div>
+      <div class="token-override-row">
+        <input type="text" id="manualTokenInput" placeholder="Paste your forged token here (e.g. eyJhbGciOiJub25l...)" spellcheck="false">
+        <button id="applyTokenBtn" class="btn btn-outline">Apply Token</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div>VaultOps CTF Challenge — Compatible with GitHub & Vercel</div>
+    <div>Designed for Web Exploit Practice with <strong>WebHunter</strong></div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

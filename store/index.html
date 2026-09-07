@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MONOLITH / ARCHIVE — Technical Garments & Objects</title>
+  
+  <!-- Satoshi Font & JetBrains Mono -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              accent: '#dcf836',
+              surface: '#121215',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['Satoshi', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#09090b] text-zinc-100 selection:bg-[#dcf836] selection:text-black">
+  <!-- Subtle Grain Filter Pseudo-Layer -->
+  <div class="grain-overlay"></div>
+
+  <!-- Global Navigation Header -->
+  <header class="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-[#09090b]/80 backdrop-blur-xl transition-all">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+      <!-- Brand Logotype (Asymmetric Left) -->
+      <div class="flex items-center gap-6">
+        <a href="#" class="group flex items-center gap-3">
+          <span class="w-3.5 h-3.5 bg-[#dcf836] rotate-45 group-hover:rotate-90 transition-transform duration-300"></span>
+          <span class="text-lg md:text-xl font-black tracking-tighter uppercase font-sans">
+            MONOLITH <span class="text-zinc-500 font-normal">/</span> ARCHIVE
+          </span>
+        </a>
+
+        <div class="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/60 text-[11px] font-mono text-zinc-400">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#dcf836] perpetual-pulse"></span>
+          <span>AUTUMN / WINTER 2026 DISPATCH ACTIVE</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions (Right) -->
+      <div class="flex items-center gap-4 md:gap-6">
+        <nav class="hidden md:flex items-center gap-6 text-xs font-mono uppercase tracking-widest text-zinc-400">
+          <a href="#catalog" class="hover:text-white transition-colors">Catalog</a>
+          <a href="#manifesto" class="hover:text-white transition-colors">Manifesto</a>
+          <a href="#specs" class="hover:text-white transition-colors">Fabrics</a>
+        </nav>
+
+        <div class="h-4 w-px bg-zinc-800 hidden md:block"></div>
+
+        <!-- Cart Button -->
+        <button class="trigger-cart-btn relative px-4 py-2 border border-zinc-800 hover:border-zinc-600 bg-zinc-900/90 rounded-lg flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-zinc-200 btn-tactile">
+          <svg class="w-4 h-4 text-[#dcf836]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span class="hidden sm:inline">Ledger</span>
+          <span class="cart-count-badge opacity-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold bg-[#dcf836] text-black rounded font-mono transition-opacity">
+            0
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Split Screen Asymmetric Hero Section (Design Variance: 8, min-h-[100dvh]) -->
+  <section class="relative min-h-[100dvh] flex flex-col justify-between border-b border-zinc-800/80 overflow-hidden">
+    <div class="max-w-[1400px] w-full mx-auto px-4 md:px-8 py-12 md:py-20 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      
+      <!-- Left Column: Typography & Narrative (7 cols) -->
+      <div class="lg:col-span-7 flex flex-col justify-center space-y-8">
+        <div class="inline-flex items-center gap-3">
+          <span class="text-xs font-mono font-bold tracking-widest text-[#dcf836] uppercase">Capsule Reference 09</span>
+          <span class="h-px w-10 bg-zinc-800"></span>
+          <span class="text-xs font-mono text-zinc-500 uppercase">Kyoto / Berlin Atelier</span>
+        </div>
+
+        <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.92] uppercase text-zinc-100 font-sans">
+          Engineered <br>
+          <span class="text-zinc-500 font-normal">Silence &</span> <br>
+          Form.
+        </h1>
+
+        <p class="text-base md:text-lg text-zinc-400 font-sans max-w-[55ch] leading-relaxed">
+          Architectural technical apparel synthesized from high-density Japanese textiles, ePTFE atmospheric membranes, and sculpted ergonomic geometry. Built for austere urban transit.
+        </p>
+
+        <!-- CTA & Telemetry Metrics Row -->
+        <div class="pt-4 flex flex-wrap items-center gap-6">
+          <a href="#catalog" class="px-8 py-4 bg-[#dcf836] hover:bg-[#e6ff4d] text-black font-mono text-xs font-bold uppercase tracking-widest rounded-lg flex items-center gap-3 shadow-xl btn-tactile">
+            <span>Explore Capsule Archive</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+
+          <div class="flex items-center gap-6 border-l border-zinc-800 pl-6 text-xs font-mono text-zinc-500">
+            <div>
+              <div class="text-zinc-200 font-bold">20,000mm</div>
+              <div>Waterhead Rating</div>
+            </div>
+            <div>
+              <div class="text-zinc-200 font-bold">520 GSM</div>
+              <div>Knitted Fleece Density</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Asymmetric Visual Frames (5 cols) -->
+      <div class="lg:col-span-5 relative">
+        <div class="relative w-full max-w-md mx-auto lg:max-w-none">
+          <!-- Primary Frame -->
+          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 shadow-2xl">
+            <img 
+              src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1200&q=85" 
+              alt="Monolith Technical Shell" 
+              class="w-full h-full object-cover filter contrast-[1.08] grayscale hover:grayscale-0 transition-all duration-700"
+            />
+            
+            <div class="absolute bottom-4 left-4 right-4 p-4 glass-panel rounded-xl text-xs font-mono flex items-center justify-between">
+              <div>
+                <span class="text-zinc-400 block text-[10px] uppercase tracking-wider">Object Highlight</span>
+                <span class="text-zinc-100 font-bold">MN-SH-01 Technical Shell</span>
+              </div>
+              <span class="text-[#dcf836] font-bold text-sm">$485.00</span>
+            </div>
+          </div>
+
+          <!-- Secondary Floating Offset Frame -->
+          <div class="hidden sm:block absolute -bottom-8 -left-10 w-44 aspect-square rounded-xl overflow-hidden border border-zinc-700/80 bg-zinc-900 shadow-2xl">
+            <img 
+              src="https://images.unsplash.com/photo-1542272604-780c96856592?auto=format&fit=crop&w=600&q=85" 
+              alt="Raw Kuroki Denim Detail" 
+              class="w-full h-full object-cover filter contrast-[1.15]"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-2.5">
+              <span class="text-[9px] font-mono text-zinc-300 uppercase">14.5oz Okayama Selvedge</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Kinetic Marquee Ticker -->
+    <div class="w-full border-t border-zinc-800/80 py-3 bg-zinc-950/60 backdrop-blur-sm overflow-hidden flex items-center">
+      <div class="marquee-track text-xs font-mono uppercase tracking-widest text-zinc-500 whitespace-nowrap">
+        <span class="mx-6 text-zinc-300">Japanese Kuroki Mills 14.5oz Raw Denim</span>
+        <span class="mx-6 text-zinc-600">/</span>
+        <span class="mx-6 text-[#dcf836]">Fidlock Magnetic Hardware Systems</span>
+        <span class="mx-6 text-zinc-600">/</span>
+        <span class="mx-6 text-zinc-300">520gsm Wakayama Loopback Knitted Cotton</span>
+        <span class="mx-6 text-zinc-600">/</span>
+        <span class="mx-6 text-zinc-300">Custom Vibram Commando Outsole</span>
+        <span class="mx-6 text-zinc-600">/</span>
+        <span class="mx-6 text-[#dcf836]">3-Layer Atmospheric ePTFE Membrane</span>
+        <span class="mx-6 text-zinc-600">/</span>
+        <span class="mx-6 text-zinc-300">Invista 1000D Cordura Nylon</span>
+        <span class="mx-6 text-zinc-600">/</span>
+        <span class="mx-6 text-zinc-300">Japanese Kuroki Mills 14.5oz Raw Denim</span>
+        <span class="mx-6 text-zinc-600">/</span>
+        <span class="mx-6 text-[#dcf836]">Fidlock Magnetic Hardware Systems</span>
+        <span class="mx-6 text-zinc-600">/</span>
+        <span class="mx-6 text-zinc-300">520gsm Wakayama Loopback Knitted Cotton</span>
+        <span class="mx-6 text-zinc-600">/</span>
+        <span class="mx-6 text-zinc-300">Custom Vibram Commando Outsole</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Catalog Section -->
+  <section id="catalog" class="max-w-[1400px] mx-auto px-4 md:px-8 py-20">
+    
+    <!-- Section Header & Filter Controls -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-zinc-800">
+      <div>
+        <div class="flex items-center gap-2 text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2">
+          <span>Active Registry</span>
+          <span>/</span>
+          <span class="text-zinc-400">Capsule 09 Objects</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight uppercase text-zinc-100">
+          The Collection
+        </h2>
+      </div>
+
+      <!-- Controls: Category Pills & Instant Search -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        <!-- Search Input -->
+        <div class="relative">
+          <input 
+            type="text" 
+            id="catalogSearch" 
+            placeholder="Search SKU or fabrication..."
+            class="w-full sm:w-64 px-3.5 py-2 pl-9 bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-200 placeholder-zinc-500 rounded-md focus:border-zinc-600 outline-none transition-colors"
+          />
+          <div class="absolute left-3 top-2.5 text-zinc-500 pointer-events-none">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+        </div>
+
+        <!-- Filter Pills -->
+        <div class="flex flex-wrap items-center gap-1.5" id="filterPills">
+          <button data-filter="all" class="filter-btn px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-md border bg-[#dcf836] text-black border-[#dcf836] font-bold btn-tactile">All</button>
+          <button data-filter="outerwear" class="filter-btn px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-md border bg-zinc-900/80 text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white btn-tactile">Outerwear</button>
+          <button data-filter="bottoms" class="filter-btn px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-md border bg-zinc-900/80 text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white btn-tactile">Bottoms</button>
+          <button data-filter="sweats" class="filter-btn px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-md border bg-zinc-900/80 text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white btn-tactile">Sweats</button>
+          <button data-filter="footwear" class="filter-btn px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-md border bg-zinc-900/80 text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white btn-tactile">Footwear</button>
+          <button data-filter="accs" class="filter-btn px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-md border bg-zinc-900/80 text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white btn-tactile">Objects</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Grid: Asymmetric & Masonry (Design Variance: 8) -->
+    <div id="catalogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-10">
+      <!-- Injected via app.js -->
+    </div>
+  </section>
+
+  <!-- Manifesto / Material Specs Section (Visual Density: 4, Airy) -->
+  <section id="manifesto" class="border-t border-zinc-800/80 bg-zinc-950/40 py-24">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-4">
+          <span class="text-xs font-mono uppercase tracking-widest text-[#dcf836] block mb-2">Design Philosophy</span>
+          <h2 class="text-3xl font-black uppercase tracking-tight text-zinc-100">
+            Anti-Disposable Architecture.
+          </h2>
+        </div>
+
+        <div class="lg:col-span-8 space-y-6 text-zinc-400 font-sans text-base md:text-lg leading-relaxed">
+          <p>
+            MONOLITH / ARCHIVE was founded in opposition to the accelerated lifecycle of modern fast fashion. Every silhouette is drafted through ergonomic load-distribution mapping and fabricated in limited runs in Okayama and Kyoto.
+          </p>
+          <p class="text-zinc-500 text-sm font-mono">
+            All garments utilize zero-waste pattern-cutting methods where possible, with hardware sourced exclusively from certified industrial suppliers including Fidlock Germany and YKK Fastening Systems.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide-out Shopping Cart Drawer -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 pointer-events-none">
+    <!-- Backdrop -->
+    <div id="cartBackdrop" class="drawer-backdrop absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 cursor-pointer"></div>
+
+    <!-- Panel -->
+    <div class="drawer-panel absolute top-0 right-0 h-full w-full max-w-md bg-[#0e0e11] border-l border-zinc-800 flex flex-col justify-between shadow-2xl translate-x-full">
+      <!-- Drawer Header -->
+      <div class="p-6 border-b border-zinc-800 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono uppercase tracking-widest text-zinc-500">Order Ledger</span>
+          <h3 class="text-lg font-bold text-zinc-100 tracking-tight">Allocated Objects</h3>
+        </div>
+        <button id="closeCartBtn" class="p-2 text-zinc-400 hover:text-white rounded-md border border-zinc-800 hover:border-zinc-600 btn-tactile">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Drawer Scrollable Body -->
+      <div id="cartItems" class="flex-1 overflow-y-auto p-6 space-y-4">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Drawer Footer & Checkout -->
+      <div class="p-6 border-t border-zinc-800 bg-zinc-950/60 space-y-4">
+        <!-- Promo Code Row -->
+        <div class="flex gap-2">
+          <input 
+            type="text" 
+            id="promoInput" 
+            placeholder="Archive Code (Try: ARCHIVE15)"
+            class="flex-1 px-3 py-2 bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-200 placeholder-zinc-600 rounded outline-none focus:border-zinc-600 uppercase"
+          />
+          <button onclick="applyPromo()" class="px-3 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-mono uppercase tracking-wider rounded btn-tactile">
+            Apply
+          </button>
+        </div>
+
+        <!-- Price Math Breakdown -->
+        <div class="space-y-1.5 text-xs font-mono text-zinc-400 pt-2 border-t border-zinc-900">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span id="cartSubtotal" class="text-zinc-200">$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Global Courier Freight</span>
+            <span id="cartShipping" class="text-zinc-200">$0.00</span>
+          </div>
+          <div class="flex justify-between text-sm font-bold text-zinc-100 pt-2 border-t border-zinc-800">
+            <span>Total Ledger Assessment</span>
+            <span id="cartTotal" class="text-[#dcf836]">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Checkout Action -->
+        <button 
+          onclick="checkoutOrder()" 
+          class="w-full py-4 bg-[#dcf836] hover:bg-[#e6ff4d] text-black font-mono text-xs font-bold uppercase tracking-widest rounded-lg flex items-center justify-center gap-2 shadow-xl btn-tactile"
+        >
+          <span>Confirm Dispatch Order</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick View Modal -->
+  <div id="quickModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 md:p-8">
+    <div id="modalBackdrop" class="modal-overlay absolute inset-0 bg-black/80 backdrop-blur-md opacity-0 cursor-pointer"></div>
+    <div class="modal-content relative w-full max-w-4xl bg-[#101014] border border-zinc-800 rounded-2xl p-6 md:p-8 shadow-2xl z-10 opacity-0 scale-95 transition-all">
+      <button id="closeModalBtn" class="absolute top-6 right-6 p-2 text-zinc-400 hover:text-white rounded-lg border border-zinc-800 hover:border-zinc-600 btn-tactile">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div id="modalContent">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Notification Bar -->
+  <div id="toastNotification" class="toast-container fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-lg border border-zinc-800 bg-[#121216]/95 backdrop-blur-md shadow-2xl text-xs font-mono text-zinc-200 opacity-0 translate-y-6 pointer-events-none">
+    <span class="w-2 h-2 rounded-full bg-[#dcf836]"></span>
+    <span id="toastMessage">Notification triggered</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-800/80 bg-[#070709] py-16 text-zinc-500 text-xs font-mono">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <span class="w-2.5 h-2.5 bg-[#dcf836] rotate-45"></span>
+        <span class="text-zinc-300 font-bold uppercase tracking-wider font-sans">MONOLITH / ARCHIVE</span>
+        <span>•</span>
+        <span>Independent Research & Garment Atelier</span>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <span>Kyoto 35.0116° N, 135.7681° E</span>
+        <span>Berlin 52.5200° N, 13.4050° E</span>
+        <span class="text-zinc-400">© 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
